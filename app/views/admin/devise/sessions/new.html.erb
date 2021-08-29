@@ -1,0 +1,76 @@
+<p>admin</p>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-2">
+      </div>
+      <div class="col-xs-3">
+            <h4>会員の方はこちらからログイン</h4>
+      </div>
+    </div>
+
+    <%= form_for(resource, as: resource_name, url: admin_sign_in_path) do |f| %>
+              <div class="form-group">
+                  <div class="row">
+                    <div class="col-xs-3">
+                    </div>
+                    <div class="col-xs-2">
+                        <%= f.label :メールアドレス %>
+                    </div>
+                    <div class="col-xs-5">
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="row">
+                        <div class="col-xs-3">
+                        </div>
+                        <div class="col-xs-2">
+                            <%= f.label :パスワード %>
+                        </div>
+                        <div class="col-xs-5">
+                            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                        </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                  <div class="col-xs-7">
+                  </div>
+                  <div class="col-xs-3">
+                        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                          <%= link_to "  =>パスワードを忘れた方はこちら", "#" %>
+                        <% end %>
+                  </div>
+             </div>
+
+              <div class="row">
+                  <div class="col-xs-5">
+                  </div>
+                  <div class="col-xs-6">
+                    <%= f.submit "ログイン", class: "btn btn-primary active btn2" %>
+                  </div>
+              </div>
+
+    <% end %>
+
+    <div class="row">
+      <div class="col-xs-2">
+      </div>
+      <div class="col-xs-3">
+            <h4>登録がお済みでない方</h4>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-3">
+        </div>
+        <div class="col-xs-4">
+            <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+              <p><%= link_to "こちら", "#{}" %>から新規登録を行ってくだいさい。</p>
+            <% end %>
+        </div>
+    </div>
+
+</div>

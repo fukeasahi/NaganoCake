@@ -1,0 +1,98 @@
+<%= form_with model: @order, url: orders_path, method: :post,local: true do |f| %>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-1">
+		</div>
+		<div class="col-xs-3">
+			<h3>
+				注文情報確認
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-7">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr style="background-color: #EEEEEE;">
+						<th>商品名</th>
+						<th>単価（税込）</th>
+						<th>数量</th>
+						<th>小計</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<% @cart_items.each do |cart_item| %>
+					<tr>
+						<td>
+							<%= attachment_image_tag cart_item.item, :image, :fill, 50, 50, format: 'jpeg', class: "img-circle pull-left profile-img" %><%= cart_item.item.name %>
+						</td>
+						<td>
+							<%= (cart_item.item.price * 1.1).round %>
+						</td>
+						<td>
+							<%= cart_item.amount %>
+						</td>
+						<td>
+							<%= (cart_item.item.price * 1.1).round * cart_item.amount %><!-- 小計 -->
+						</td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-3">
+			<table class="table table-hover table-bordered">
+				<tbody>
+					<tr>
+						<th style="background-color: #EEEEEE;">送料</th>
+						<td>
+							800
+						</td>
+					</tr>
+					<tr>
+						<th style="background-color: #EEEEEE;">商品合計</th>
+						<td>
+							<% @sum = 0 %>
+							<% @cart_items.each do |cart_item| %>
+							<% @sum += (cart_item.item.price * 1.1).round * cart_item.amount %>
+							<% end %>
+							<%= @sum %>
+						</td>
+					</tr>
+					<tr>
+						<th style="background-color: #EEEEEE;">請求金額</th>
+						<td>
+							<%= @sum + 800 %>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-3">
+			<label>支払方法</label>
+			<%= f.text_field :payment_method, :readonly => true, style: "border:none;" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3">
+			<div class="form-inline">
+				<div>
+					<label>お届け先</label>
+			<%= f.text_field :ship_postcode, :readonly => true, style: "border:none;"  %>　<%= f.text_field :ship_toaddress, :readonly => true, style: "border:none;" %>　<%= f.text_field :ship_name, :readonly => true, style: "border:none;"  %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-5">
+		</div>
+		<div class="col-xs-3">
+			<%= f.submit "購入を確定する", data:{ confirm: '本当に購入して良いですか?'}, class: "btn btn-success" %>
+		</div>
+	</div>
+</div>
+<% end %>

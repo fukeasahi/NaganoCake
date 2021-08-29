@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-2">
+			<table  class="table table-bordered">
+			  <tr>
+			    <th>ジャンル検索</th>
+			  </tr>
+			  <tr>
+			    <td style="padding: 10px 0 100px 10px;">
+			    	<p>ケーキ</p>
+			    	<br style="padding: 10px 0 0 10px;"><p>焼き菓子</p>
+			    	<br style="padding: 10px 0 0 10px;"><p>プリン</p>
+			    	<br><p>キャンディ</p>
+			    </td>
+			  </tr>
+			</table>
+		</div>
+		<div class="col-xs-10">
+			<div class="row">
+				<div class="col-xs-2"></div>
+				<div class="col-xs-4">
+					<%= attachment_image_tag @item, :image, :fill, 150, 150, format: 'jpeg' %>
+				</div>
+				<div class="col-xs-6">
+					<h3>
+						<%= @item.name %>
+					</h3>
+					<p>
+						<%= @item.description %>
+					</p>
+					<h3>
+						¥<%= (1.1*@item.price).round %>(税込)
+					</h3>
+					<div class="row" style="margin: 50px 0 0 0;">
+						<%= form_for(@cart_item, url: cart_items_path) do |f| %>
+							<div class="col-xs-3"></div>
+							<div class="col-xs-3">
+								<%= f.number_field :amount%>
+							</div>
+							<div class="col-xs-3">
+								<%= f.hidden_field :item_id, value: @item.id%>
+							</div>
+							<div class="col-xs-3">
+								<%= f.submit "カートに入れる", class: "btn btn-primary" %>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 

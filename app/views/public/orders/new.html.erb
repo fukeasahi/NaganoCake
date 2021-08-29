@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-2">
+		</div>
+		<div class="col-xs-3">
+			<h3>
+				注文情報入力
+			</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-9"><!-- 支払方法 -->
+			<%= form_with model: @order, url: orders_verification_path, method: :post,local: true do |f| %>
+				<!-- <div> -->
+					<div class="form-group">
+						<label>支払方法</label>
+					</div>
+					<div class="form-group">
+					     <%= f.radio_button :payment_method, :クレジットカード %>
+					     <%= f.label :payment_method, "クレジットカード", {value: :クレジットカード, style: "display: inline-block;"} %>
+					</div>
+					<div class="form-group">
+						  <%= f.radio_button :payment_method, :銀行振込 %>
+						  <%= f.label :payment_method, "銀行振込", {value: :銀行振込, style: "display: inline-block;"} %>
+					</div>
+				<!-- </div>
+				<div> -->
+					<div class="form-group">
+						<label>お届け先</label>
+					</div>
+					<div class="form-group">
+					     <%= f.radio_button :address_option,0%>
+					     <%= f.label :payment_method, "ご自身の住所", {value: :クレジットカード, style: "display: inline-block;"} %>
+					</div>
+					<div class="form-group">
+					     <%= current_end_user.user_address %><%= current_end_user.last_name %><%= current_end_user.first_name %><%= current_end_user.postcode %>
+					</div>
+					<div class="form-group">
+					     <%= f.radio_button :address_option,1 %>
+					     <%= f.label :payment_method, "登録済住所から選択", {value: :クレジットカード, style: "display: inline-block;"} %>
+					</div>
+					<div class="form-group">
+					   <%= f.collection_select :address_id, Address.all, :id, :full, class: "form-control" %>
+					</div>
+					<div class="form-group">
+						  <%= f.radio_button :address_option,2%>
+						  <%= f.label :payment_method, "新しいお届け先", {value: :銀行振込, style: "display: inline-block;"} %>
+					</div>
+					<div class="form-group">
+						  郵便番号（ハイフンなし） <%= f.text_field :ship_postcode %>
+					</div>
+					<div class="form-group">
+						  住所 　　　　　　　　　　<%= f.text_field :ship_toaddress %>
+					</div>
+					<div class="form-group">
+						  宛名　　　　　　　　　　 <%= f.text_field :ship_name %>
+					</div>
+					<%= f.submit "確認画面へ進む", class: "btn btn-primary" %>
+				<!-- </div> -->
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+
+
